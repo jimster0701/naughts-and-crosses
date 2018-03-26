@@ -50,7 +50,13 @@ def gameInfo():
         tkinter.messagebox.showinfo(title="O has won", message="O has won")
         resetGrid()
     else:
-        label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
+        if not 0 in grid:
+            label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
+            print("no one won")
+            tkinter.messagebox.showinfo(title="No one won", message="No one won")
+            resetGrid()
+        else:
+            label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
 
 def changeButton(a,x):
     global turn
