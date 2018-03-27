@@ -20,17 +20,27 @@ def hasWon(a):
         print("no one has won")
         return 0
 
-def resetGrid():
+def reset():
     global grid
     for i in range(1,10):
         changeButton(i,"")
     grid = [0,0,0,0,0,0,0,0,0]
+    
+def resetText():
+    global turn
+    global score
+    global label
+    turn = random.choice([-1,1])
+    if turn == 1:
+        t = "X"
+    else:
+        t = "O"
+    label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
 
 def gameInfo():
     global label
     global turn
     global grid
-    turn = 0 - turn
     print(turn,"s turn")
     w = hasWon(grid)
     if turn == 1:
@@ -39,23 +49,28 @@ def gameInfo():
         t = "O"
     if w == 1:
         score[0] = score[0] + 1
+        resetText()
         print("X got a point")
-        label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
         tkinter.messagebox.showinfo(title="X has won", message="X has won")
-        resetGrid()
+        reset()
     elif w == -1:
         score[1] = score[1] + 1
-        label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
+        resetText()
         print("O got a point")
         tkinter.messagebox.showinfo(title="O has won", message="O has won")
-        resetGrid()
+        reset()
     else:
         if not 0 in grid:
-            label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
+            resetText()
             print("no one won")
             tkinter.messagebox.showinfo(title="No one won", message="No one won")
-            resetGrid()
+            reset()
         else:
+            turn = 0 - turn
+            if turn == 1:
+                t = "X"
+            else:
+                t = "O"
             label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
 
 def changeButton(a,x):
