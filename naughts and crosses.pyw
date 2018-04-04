@@ -1,5 +1,6 @@
 import tkinter
 import tkinter.messagebox
+import sys
 import os
 import random
 
@@ -227,8 +228,13 @@ button7.pack(side=tkinter.LEFT)
 button8.pack(side=tkinter.LEFT)
 button9.pack(side=tkinter.LEFT)
 
+def path(relativePath):
+     if hasattr(sys, '_MEIPASS'):
+         return os.path.join(sys._MEIPASS, relativePath)
+     return os.path.join(os.path.abspath("."), relativePath)
+
 try:
-    root.iconbitmap("assets/icon.ico")
+    root.iconbitmap(path("assets\icon.ico"))
 except Exception as e:
     print(e)
 root.title("Naughts and Crosses")
