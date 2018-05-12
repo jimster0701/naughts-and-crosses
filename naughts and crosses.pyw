@@ -9,6 +9,21 @@ score = [0,0]
 turn = 1
 root = tkinter.Tk()
 
+def path(relativePath):
+     if hasattr(sys, '_MEIPASS'):
+         return os.path.join(sys._MEIPASS, relativePath)
+     return os.path.join(os.path.abspath("."), relativePath)
+
+try:
+    imgO = tkinter.PhotoImage(file=path("assets\\O.gif"))
+except Exception as e:
+    imgO = tkinter.PhotoImage()
+try:
+    imgX = tkinter.PhotoImage(file=path("assets\\X.gif"))
+except Exception as e:
+    imgO = tkinter.PhotoImage()
+img = tkinter.PhotoImage()
+    
 def hasWon(a):
     b = [a[0]+a[1]+a[2], a[3]+a[4]+a[5], a[6]+a[7]+a[8], a[0]+a[3]+a[6], a[1]+a[4]+a[7], a[2]+a[5]+a[8], a[0]+a[4]+a[8], a[2]+a[4]+a[6]]
     if 3 in b:
@@ -36,7 +51,7 @@ def resetText():
         t = "X"
     else:
         t = "O"
-    label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
+    label.config(text=("Xs score: " + str(score[0])+"\nOs score: " + str(score[1])+"\n"+t+"s turn"))
 
 def gameInfo():
     global label
@@ -72,43 +87,43 @@ def gameInfo():
                 t = "X"
             else:
                 t = "O"
-            label.config(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\n"+t+"'s turn"))
+            label.config(text=("Xs score: " + str(score[0])+"\nOs score: " + str(score[1])+"\n"+t+"s turn"))
 
 def changeButton(a,x):
     global turn
     if turn == 1:
-        b = "X"
+        b = imgX
     else:
-        b = "O"
+        b = imgO
     if not x == 0:
-        b = x
+        b = img
     if a == 1:
         global button1
-        button1.config(text=b)
+        button1.config(image=b)
     if a == 2:
         global button2
-        button2.config(text=b)
+        button2.config(image=b)
     if a == 3:
         global button3
-        button3.config(text=b)
+        button3.config(image=b)
     if a == 4:
         global button4
-        button4.config(text=b)
+        button4.config(image=b)
     if a == 5:
         global button5
-        button5.config(text=b)
+        button5.config(image=b)
     if a == 6:
         global button6
-        button6.config(text=b)
+        button6.config(image=b)
     if a == 7:
         global button7
-        button7.config(text=b)
+        button7.config(image=b)
     if a == 8:
         global button8
-        button8.config(text=b)
+        button8.config(image=b)
     if a == 9:
         global button9
-        button9.config(text=b)
+        button9.config(image=b)
 
 def b1():
     global turn
@@ -199,22 +214,22 @@ def b9():
         changeButton(9,0)
         gameInfo()
 
-label = tkinter.Label(text=("X's score: " + str(score[0])+"\nO's score: " + str(score[1])+"\nX's turn"))
+label = tkinter.Label(text=("Xs score: " + str(score[0])+"\nOs score: " + str(score[1])+"\nXs turn"))
 frame1 = tkinter.Frame(width=30, height=15)
 frame2 = tkinter.Frame(frame1, width=30, height=5)
 frame3 = tkinter.Frame(frame1, width=30, height=5)
 frame4 = tkinter.Frame(frame1, width=30, height=5)
-button1 = tkinter.Button(frame2, text="", command=b1, height = 5, width = 10)
-button2 = tkinter.Button(frame2, text="", command=b2, height = 5, width = 10)
-button3 = tkinter.Button(frame2, text="", command=b3, height = 5, width = 10)
-button4 = tkinter.Button(frame3, text="", command=b4, height = 5, width = 10)
-button5 = tkinter.Button(frame3, text="", command=b5, height = 5, width = 10)
-button6 = tkinter.Button(frame3, text="", command=b6, height = 5, width = 10)
-button7 = tkinter.Button(frame4, text="", command=b7, height = 5, width = 10)
-button8 = tkinter.Button(frame4, text="", command=b8, height = 5, width = 10)
-button9 = tkinter.Button(frame4, text="", command=b9, height = 5, width = 10)
+button1 = tkinter.Button(frame2, image=img, height=100, width=100, command=b1)
+button2 = tkinter.Button(frame2, image=img, height=100, width=100, command=b2)
+button3 = tkinter.Button(frame2, image=img, height=100, width=100, command=b3)
+button4 = tkinter.Button(frame3, image=img, height=100, width=100, command=b4)
+button5 = tkinter.Button(frame3, image=img, height=100, width=100, command=b5)
+button6 = tkinter.Button(frame3, image=img, height=100, width=100, command=b6)
+button7 = tkinter.Button(frame4, image=img, height=100, width=100, command=b7)
+button8 = tkinter.Button(frame4, image=img, height=100, width=100, command=b8)
+button9 = tkinter.Button(frame4, image=img, height=100, width=100, command=b9)
 label.pack()
-frame1.pack(expand=False, side=tkinter.BOTTOM)
+frame1.pack(expand=True)
 frame2.pack(expand=False)
 frame3.pack(expand=False)
 frame4.pack(expand=False)
@@ -228,16 +243,11 @@ button7.pack(side=tkinter.LEFT)
 button8.pack(side=tkinter.LEFT)
 button9.pack(side=tkinter.LEFT)
 
-def path(relativePath):
-     if hasattr(sys, '_MEIPASS'):
-         return os.path.join(sys._MEIPASS, relativePath)
-     return os.path.join(os.path.abspath("."), relativePath)
-
 try:
     root.iconbitmap(path("assets\icon.ico"))
 except Exception as e:
     print(e)
 root.title("Naughts and Crosses")
-root.geometry("250x310")
+root.geometry("330x380")
 root.resizable(False, False)
 root.mainloop()
