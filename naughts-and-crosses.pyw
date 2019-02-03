@@ -49,7 +49,11 @@ class naughtsAndCrosses:
                 return tmp/3
         return 0
 
-    path = lambda path: os.path.join(os.path.abspath("."), path)
+    def path(relativePath):
+        if hasattr(sys, '_MEIPASS'):
+            return os.path.join(sys._MEIPASS, relativePath)
+        return os.path.join(os.path.abspath("."), relativePath)
+    
     turnChar = lambda turn: {"naught":"O", "cross":"X"}[turn]
     pluralTurn = lambda turn: {"naught":"naughts", "cross":"crosses"}[turn]
     scoreIndex = lambda turn: {"naught":0, "cross":1}[turn]
