@@ -1,6 +1,7 @@
 import tkinter
 import tkinter.messagebox
 import os
+import sys
 import random
 
 class naughtsAndCrosses:
@@ -90,11 +91,12 @@ class naughtsAndCrosses:
     buttons = []
     for column in range(3):
         for row in range(3):
+            buttons.append(tkinter.Button(mainGrid, image=images["none"],
+                command=lambda arg=(column*3)+row: naughtsAndCrosses.buttonPressed(arg)))
             if images["images"]:
-                buttons.append(tkinter.Button(mainGrid, image=images["none"], height=100, width=100))
+                buttons[(column*3)+row].config(height=100, width=100)
             else:
-                buttons.append(tkinter.Button(mainGrid, text=" ", image=images["none"], height=98, width=98, compound="center"))
-            buttons[(column*3)+row].config(command=lambda arg=(column*3)+row: naughtsAndCrosses.buttonPressed(arg))
+                buttons[(column*3)+row].config(text=" ", height=98, width=98, compound="center")
             buttons[(column*3)+row].grid(column=column, row=row)
 
 naughtsAndCrosses.root.mainloop()
