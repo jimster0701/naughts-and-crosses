@@ -32,7 +32,18 @@ class naughtsAndCrosses:
                 else:
                     self.buttons[i].config(text=" ")
         else:
-            self.turn = self.nextTurn(self.turn)
+            if 0 not in self.grid:
+                self.text.config(text="naughts score: "+str(self.score[0])+
+                    "\ncrosses score: "+str(self.score[1])+"\n")
+                self.message("No one has won", "No one has won")
+                self.grid = [0]*9
+                for i in range(9):
+                    if self.images["images"]:
+                        self.buttons[i].config(image=self.images["none"])
+                    else:
+                        self.buttons[i].config(text=" ")
+            else:
+                self.turn = self.nextTurn(self.turn)
         self.text.config(text="naughts score: "+str(self.score[0])+
             "\ncrosses score: "+str(self.score[1])+"\n"+self.pluralTurn(self.turn)+" turn")
 
